@@ -162,7 +162,7 @@ export default () => {
     <div>
       回退版本
       {/* <button onClick={exportExcel}>导出</button> */}
-      <img src={'data:image/gif;base64,http://paycore-qduat.yuantutech.com/paycore/payType/payType0.png'}/>
+      {/* <img src={'data:image/gif;base64,http://paycore-qduat.yuantutech.com/paycore/payType/payType0.png'}/> */}
     </div>
   )
 }
