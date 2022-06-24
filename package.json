@@ -168,14 +168,11 @@
   },
   "lint-staged": {
     "*.{jsx,ts,tsx,js}": [
-      "node -v",
-      "npm run lint:fix",
-      "prettier --write "
+      "node -v"
     ]
   },
   "husky": {
     "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "lint-staged"
     }
   }
