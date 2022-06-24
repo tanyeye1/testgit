@@ -1,8 +1,10 @@
 import React, {lazy} from 'react'
+import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
+
 const Home = lazy(() => import('../pages/Home'))
 const Login = lazy(() => import('../pages/Login'))
-const Test = lazy(() => import('../pages/Home/Test'))
-
+const Form = lazy(() => import('../pages/Home/Form'))
+const Animal = lazy(() => import('../pages/Home/Animal'))
 
 const routes = [
   {
@@ -11,9 +13,27 @@ const routes = [
     component: Home,
     children: [
       {
-        title: 'Test',
-        path: '/home/test',
-        component: Test,
+        icon: UserOutlined,
+        title: '表单',
+        path: '/home/form',
+        component: Form,
+        // children: [{
+        //   title: 'test111',
+        //   path: '/home/test/test111',
+        //   component: Home,
+        // },
+        // {
+        //   title: 'test112',
+        //   path: '/home/test/test112',
+        //   // component: Home,
+        // }]
+      },
+      {
+        icon: UserOutlined,
+        title: '动画',
+        path: '/home/animal',
+        component: Animal,
+        
       }
     ]
   },
@@ -25,7 +45,21 @@ const routes = [
   {
     title: 'Login',
     path: '/login',
-    component: Login
+    children: [
+      {
+        icon: UserOutlined,
+        title: 'Testlogin',
+        path: '/login/test',
+        component: Login,
+
+        // component: Test,
+        // children: [{
+        //   title: 'test111',
+        //   path: '/home/test/test111',
+        //   component: Home,
+        // }]
+      }
+    ]
   }
 ]
 export default routes

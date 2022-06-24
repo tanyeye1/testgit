@@ -310,6 +310,7 @@ module.exports = function (webpackEnv) {
         .map(ext => `.${ext}`)
         .filter(ext => useTypeScript || !ext.includes('ts')),
       alias: {
+        '@': path.resolve('src'),
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
         'react-native': 'react-native-web',
@@ -378,6 +379,23 @@ module.exports = function (webpackEnv) {
             {
               test: /\.svg$/,
               use: [
+               { loader: 'svg-sprite-loader', options: {} },
+               { loader: 'svgo-loader', options: {
+                  // plugins:[
+                  //加载时删除svg默认fill填充色
+                   //   {removeAttrs:{attrs: 'fill'}}
+                    //  ]
+               }}
+              ]
+             },
+            {
+              test: /\.svg$/,
+              use: [
+                // { loader: "svg-sprite-loader", options: {} },
+                // {
+                //   loader: "svgo-loader",
+                //   options: {},
+                // },
                 {
                   loader: require.resolve('@svgr/webpack'),
                   options: {

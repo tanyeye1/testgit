@@ -7,10 +7,13 @@
     "@antv/g2": "^4.2.1",
     "@babel/core": "^7.16.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
+    "@react-three/fiber": "^7.0.29",
+    "@reduxjs/toolkit": "^1.8.2",
     "@svgr/webpack": "^5.5.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
+    "@uiw/react-amap-weather": "^3.0.4",
     "antd": "^4.20.2",
     "babel-jest": "^27.4.2",
     "babel-loader": "^8.2.3",
@@ -21,6 +24,7 @@
     "browserslist": "^4.18.1",
     "camelcase": "^6.2.1",
     "case-sensitive-paths-webpack-plugin": "^2.4.0",
+    "crypto-js": "^4.1.1",
     "css-loader": "^6.5.1",
     "css-minimizer-webpack-plugin": "^3.2.0",
     "customize-cra": "^1.0.0",
@@ -30,8 +34,11 @@
     "eslint-config-react-app": "^7.0.1",
     "eslint-webpack-plugin": "^3.1.1",
     "file-loader": "^6.2.0",
+    "framer-motion": "^6.3.11",
+    "framer-motion-3d": "^6.3.12",
     "fs-extra": "^10.0.0",
     "html-webpack-plugin": "^5.5.0",
+    "html2canvas": "^1.4.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.4.3",
     "jest-resolve": "^27.4.2",
@@ -45,13 +52,18 @@
     "postcss-normalize": "^10.0.1",
     "postcss-preset-env": "^7.0.1",
     "prompts": "^2.4.2",
+    "qrcode.react": "^3.0.2",
     "react": "^18.1.0",
     "react-app-polyfill": "^3.0.0",
     "react-app-rewired": "^2.2.1",
     "react-dev-utils": "^12.0.1",
     "react-dom": "^18.1.0",
+    "react-redux": "^8.0.2",
     "react-refresh": "^0.11.0",
     "react-router-dom": "^6.3.0",
+    "redux": "^4.2.0",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.1",
     "resolve": "^1.20.0",
     "resolve-url-loader": "^4.0.0",
     "sass-loader": "^12.3.0",
@@ -60,6 +72,7 @@
     "style-loader": "^3.3.1",
     "tailwindcss": "^3.0.2",
     "terser-webpack-plugin": "^5.2.5",
+    "three": "^0.141.0",
     "web-vitals": "^2.1.4",
     "webpack": "^5.64.4",
     "webpack-dev-server": "^4.6.0",
@@ -70,7 +83,9 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "lint": "eslint . --ext .ts && eslint . --ext .tsx",
+    "lint:fix": "eslint --fix"
   },
   "eslintConfig": {
     "extends": [
@@ -145,6 +160,23 @@
     ]
   },
   "devDependencies": {
-    "sass": "^1.51.0"
+    "husky": "^4.3.8",
+    "lint-staged": "^13.0.2",
+    "sass": "^1.51.0",
+    "svg-sprite-loader": "^6.0.11",
+    "svgo-loader": "^3.0.1"
+  },
+  "lint-staged": {
+    "*.{jsx,ts,tsx,js}": [
+      "node -v",
+      "npm run lint:fix",
+      "prettier --write "
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
   }
 }

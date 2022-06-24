@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import styles from './index.module.scss'
-import { Layout, Menu, Breadcrumb } from 'antd';
+import './index.scss'
+import { Layout, Menu, Breadcrumb, Checkbox, Form, Input } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import routes from '../../router'
 import * as XLSX from 'xlsx'
+import { Weather } from '@uiw/react-amap-weather';
 import ExportJsonExcel from 'js-export-excel'
 const { Header, Content, Sider } = Layout;
 const items1 = routes.map((key) => ({
@@ -27,6 +28,7 @@ const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, i
   };
 });
 export default () => {
+  const [form] = Form.useForm()
   const navigate = useNavigate()
   const [data, setData] = useState([
     {
@@ -99,12 +101,8 @@ export default () => {
         "necessityType": 2
     }
 ])
-  // 'https://paycore-aliuat.yuantutech.com/paycore/payType/payType1.png'
-  // 'https://paycore-aliuat.yuantutech.com/paycore/payType/payType_default.png'
   useEffect(() => {
-    handleImg('https://paycore-aliuat.yuantutech.com/paycore/payType/payType1.png')
-    console.log('data', data)
-    // handle('https://paycore-aliuat.yuantutech.com/paycore/payType/payType4.png')
+    return 
   })
   const exportExcel = () => {
     console.log('lll', data)
@@ -122,50 +120,15 @@ export default () => {
     let toExcel = new ExportJsonExcel(option);  //生成excel文件
     toExcel.saveExcel();  //下载excel文件
   }
-  const handleImg = (src) => {
-    var imagepath = src
-    let img = new Image();
-     img.setAttribute('crossOrigin', 'anonymous');
-     //网络图片地址
-    //  img.src = 'http://paycore-aliyun.yuantutech.com/paycore/payType/payType1.png';
-    img.src = src
-     img.onload = () => {
-         var canvas = document.createElement("canvas");
-     canvas.width = 60;
-     canvas.height = 60;
-     var ctx = canvas.getContext("2d");
-     ctx.drawImage(img, 0, 0, img.width, img.height);
-     var ext = img.src.substring(img.src.lastIndexOf(".") + 1).toLowerCase();
-     var dataURL = canvas.toDataURL("image/" + ext);
-      // console.log(dataURL);
-      img.src = dataURL
-      // console.log('img', img)
-     }
-    //  console.log('img', img)
-    // var xmlHttp ;
-    // if (window.XMLHttpRequest){
-    //     xmlHttp = new XMLHttpRequest();
-    // } 
-    // xmlHttp.open("Get",imagepath,false);
-    // xmlHttp.send();
-    // if(xmlHttp.status==404){
-    //     console.log('图片不存在')
-    //     //默认图片
-    //     return 'https://payboss-aliuat.yuantutech.com/paycore/payType/payType999.png'
-    // }else{
-    //   console.log('图片存在')
-    //   return src
-    // }
-    console.log(imagepath)
-  }
   return (
     <div>
-      回退版本
+      {/* <img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAEqElEQVRYR82Zf2hVZRjHv88595x75+5WydrY1GLsF+gmLiEwiiRJXRGmzAXBzHkjpCzB9Vc//DXoj8g/CgmqXWdmo9wwxCg1skGCICjh5mCba0E0mY1o26V77rn3nifeMzbv3T0/7j1uuhfG4Ox5nvM5z/O8z/O87wgel3a8tgJJfQszryWgDKAymL/NNQrwKAOjRHQVsnomsLNv2MurKBclPrG6WItH9xCwlRm1uegSoY+B7wJK3lHacf12trpZAfKplUF9KtHKjLcZHMzWuJUcgSJE+Egt8B2hpv6Imy1XwFhH1TYjiU8BlLgZy/HvY5KM1/0tQ6ed9GwBmZn0YzX7GXyAGa4fkiOcKU4EJtAhddfAYSJia49bPOVT6/K0yfEvAWz38mIPOl2BwqJXqOlydK5uhmeE57Rw9bf3EG6GqSsQGnxpriczAGPh6gMG80EPXrhrFYnooD80eCjVUBqg2BBsoNsp5+SVzfDV7wEFHsoJiNkA3/4Nes8+IDJqqWvmpITG1I0zCyhKiTYZv+m0Wym4DGrTzyCScoJLFU4On0W8p9VJfyxQqFTOlKBZwGxCK5Wtg9og9s6dleg/iWRfh/lAfe4kKFiK+JUPYfxxHlDyoT7fCVLvlE5jvA/6mW2OH5gaahNQdIiYrg27FWGp7AmoDcfTjLMeQax7IxAdh7xqJ3xrdiP2zdNAMgbfY3vhq38jTT4bQFHM/WqgQnQcEzB6rKYNhvGeW9ysAIVOYqALiUvvAr4lkGsakbxxAlhSAv/2CyBfXs6A00USbXmhof0moBau6s2mt1p6UPsHHLkF/afdwH9jszBy3auQK7dAWlrjCVD07kBoqI7EVMKJmNgcrssKMNH/FRKX26x1lSACO655AjSd6PNXiqK8j5mP2NKpBfDVhUAPlANKEFT4aLooJwEjYT7jid8BNkCBpYD4ER1SVtPlExp4Yhg8MYJEbxjQp2xfTUStFG2v+hrAy3ZSysbPIa9Y7+pdLwLJP3sQv/Cak2onae1VvzBgS+BvuQHj1hXEz7V4YbDVUTZ3QCp9HLGOVfYeBHpIa68eYHC1nVQgNIjkyI+IX9w7v4DPfAy5vAFa2PbVINCgAJxyqn/3GTAiNskkMxcsiAclBVRUB8ovzjDvq22BVFzv7EGiqQULMQWXQ9n0BaQHKxxTI4sQO28SryFWnv0M0or1SPaGYYxft/DgLkjFa1xyED2uZcYroL/5Gvjfm9DPNll6UMlikwDodC3UXgHVrd+DCpZD/6EZPN6bAZkNoFmo3VqdV0DpkQ1QNhwFSbL3HBStzm1Y8Apo9tKi1ZArXrDcxSL/KL/UNgdnhwVhKBquOgzG+1afejeATq5zDXHquOU0sN4PwIyBVXyp3cg/DXgO8YtvzXOr+wRy+WbLEGeM/OaoZHNoUhvPg/IehvHXJSE1T5AEadmT4Ojf0Ls3zbVpfWgyvWhx7KSStVCe+gCSmAfncRkTI4j/+g547OqsVcdj54xUNqe7eeRMM+V6cDdDvdivPqbzcRFfHs34fFFfv6UmxqK9wEyFXNRXwGmg4hI9EXuT2Hgxm4N+qu6CXqJblZV79W+I/wFHenaZVQlPsgAAAABJRU5ErkJggg=='/> */}
       {/* <button onClick={exportExcel}>导出</button> */}
-      {/* <img src={'data:image/gif;base64,http://paycore-qduat.yuantutech.com/paycore/payType/payType0.png'}/> */}
-      回退版本2???
-      <div>1</div>
-      <div>2</div>
+      
+      {/* <img src={'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAEqElEQVRYR82Zf2hVZRjHv88595x75+5WydrY1GLsF+gmLiEwiiRJXRGmzAXBzHkjpCzB9Vc//DXoj8g/CgmqXWdmo9wwxCg1skGCICjh5mCba0E0mY1o26V77rn3nifeMzbv3T0/7j1uuhfG4Ox5nvM5z/O8z/O87wgel3a8tgJJfQszryWgDKAymL/NNQrwKAOjRHQVsnomsLNv2MurKBclPrG6WItH9xCwlRm1uegSoY+B7wJK3lHacf12trpZAfKplUF9KtHKjLcZHMzWuJUcgSJE+Egt8B2hpv6Imy1XwFhH1TYjiU8BlLgZy/HvY5KM1/0tQ6ed9GwBmZn0YzX7GXyAGa4fkiOcKU4EJtAhddfAYSJia49bPOVT6/K0yfEvAWz38mIPOl2BwqJXqOlydK5uhmeE57Rw9bf3EG6GqSsQGnxpriczAGPh6gMG80EPXrhrFYnooD80eCjVUBqg2BBsoNsp5+SVzfDV7wEFHsoJiNkA3/4Nes8+IDJqqWvmpITG1I0zCyhKiTYZv+m0Wym4DGrTzyCScoJLFU4On0W8p9VJfyxQqFTOlKBZwGxCK5Wtg9og9s6dleg/iWRfh/lAfe4kKFiK+JUPYfxxHlDyoT7fCVLvlE5jvA/6mW2OH5gaahNQdIiYrg27FWGp7AmoDcfTjLMeQax7IxAdh7xqJ3xrdiP2zdNAMgbfY3vhq38jTT4bQFHM/WqgQnQcEzB6rKYNhvGeW9ysAIVOYqALiUvvAr4lkGsakbxxAlhSAv/2CyBfXs6A00USbXmhof0moBau6s2mt1p6UPsHHLkF/afdwH9jszBy3auQK7dAWlrjCVD07kBoqI7EVMKJmNgcrssKMNH/FRKX26x1lSACO655AjSd6PNXiqK8j5mP2NKpBfDVhUAPlANKEFT4aLooJwEjYT7jid8BNkCBpYD4ER1SVtPlExp4Yhg8MYJEbxjQp2xfTUStFG2v+hrAy3ZSysbPIa9Y7+pdLwLJP3sQv/Cak2onae1VvzBgS+BvuQHj1hXEz7V4YbDVUTZ3QCp9HLGOVfYeBHpIa68eYHC1nVQgNIjkyI+IX9w7v4DPfAy5vAFa2PbVINCgAJxyqn/3GTAiNskkMxcsiAclBVRUB8ovzjDvq22BVFzv7EGiqQULMQWXQ9n0BaQHKxxTI4sQO28SryFWnv0M0or1SPaGYYxft/DgLkjFa1xyED2uZcYroL/5Gvjfm9DPNll6UMlikwDodC3UXgHVrd+DCpZD/6EZPN6bAZkNoFmo3VqdV0DpkQ1QNhwFSbL3HBStzm1Y8Apo9tKi1ZArXrDcxSL/KL/UNgdnhwVhKBquOgzG+1afejeATq5zDXHquOU0sN4PwIyBVXyp3cg/DXgO8YtvzXOr+wRy+WbLEGeM/OaoZHNoUhvPg/IehvHXJSE1T5AEadmT4Ojf0Ls3zbVpfWgyvWhx7KSStVCe+gCSmAfncRkTI4j/+g547OqsVcdj54xUNqe7eeRMM+V6cDdDvdivPqbzcRFfHs34fFFfv6UmxqK9wEyFXNRXwGmg4hI9EXuT2Hgxm4N+qu6CXqJblZV79W+I/wFHenaZVQlPsgAAAABJRU5ErkJggg=='}/> */}
+      {/* <img src={convertImgToBase64('https://paycore-aliuat.yuantutech.com/paycore/payType/payType1.png')} /> */}
+      <a href='https://corpweb-aliuat.yuantutech.com/#/user/login'> 点击</a>
+      home
     </div>
   )
 }
