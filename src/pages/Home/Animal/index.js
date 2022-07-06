@@ -5,22 +5,30 @@ import Icon from "@/components/icon";
 import current from "@/common/images/look.svg"
 import { useSelector, useDispatch } from 'react-redux';
 // import current from "@/common/images/payType48.png"
+import * as XLSX from 'xlsx'
+import { saveAs } from 'file-saver'
+import { Button } from 'antd';
+import * as ExcelJs from 'exceljs';
 
 export default function Animal() {
   // const controls = useAnimation()
   const count = useSelector(state => state)
   const dispatch = useDispatch()
-useEffect(() => {
-  // console.log('动画', count, dispatch({type: 'increment', data: 10}))
-  // dispatch('INCREMENT', 2)
+  useEffect(() => {
+    // console.log('动画', count, dispatch({type: 'increment', data: 10}))
+    // dispatch('INCREMENT', 2)
+    
+    // console.log('count', count)
+    // controls.start({
+    //   x: '300px',
+    //   backgroundColor: "#f00",
+    //   transition: { duration: 3 },
+    // })
+  }, [])
+  const res = () => {
+    return 10
+  }
   
-  // console.log('count', count)
-  // controls.start({
-  //   x: '300px',
-  //   backgroundColor: "#f00",
-  //   transition: { duration: 3 },
-  // })
-}, [])
   return (
     <div>
       {
@@ -47,6 +55,7 @@ useEffect(() => {
       {/* <motion.pointLight animate={{ x: 2 }} /> */}
       <Icon name="current" />
       <img src={current}/>
+      
     </div>
   )
 }

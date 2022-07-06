@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom'
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import {makeItem} from './utils'
+import TimePick from './components/timePick'
 const { Header, Content, Sider } = Layout;
 const items1 = routes.map((key) => ({
   key: key.path,

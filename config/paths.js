@@ -22,6 +22,7 @@ const publicUrlOrPath = getPublicUrlOrPath(
 );
 
 const buildPath = process.env.BUILD_PATH || 'build';
+const otherPath = process.env.BUILD_PATH || 'otherBuild'
 
 const moduleFileExtensions = [
   'web.mjs',
@@ -70,6 +71,8 @@ module.exports = {
   appTsBuildInfoFile: resolveApp('node_modules/.cache/tsconfig.tsbuildinfo'),
   swSrc: resolveModule(resolveApp, 'src/service-worker'),
   publicUrlOrPath,
+  other: resolveModule(resolveApp, 'src/other'),
+  otherBuild: resolveApp(otherPath)
 };
 
 

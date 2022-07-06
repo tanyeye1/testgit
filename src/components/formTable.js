@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import {Form, Table, Input, Select, Button, DatePicker} from 'antd'
-import locale from 'antd/es/date-picker/locale/zh_CN';
 import styles from  './formTable.module.scss'
 import moment from 'moment';
+import ModalShow from './modal';
 const {Option} = Select
 const {RangePicker} = DatePicker
 
@@ -78,7 +78,7 @@ export default function FormTable() {
     {
       title: '操作',
       render: (text) => {
-        return <div className={styles.operation}>操作</div>
+        return <div className={styles.operation} onClick={() => {}}>操作</div>
       }
     },
   ]
@@ -88,7 +88,6 @@ export default function FormTable() {
       label: '时间',
       name: 'time',
       render: <RangePicker
-                locale={locale}
                 disabledDate={disabledDate}
               />
     },
@@ -137,6 +136,10 @@ export default function FormTable() {
         rowKey={'id'}
         columns={columns}
         dataSource={data}
+      />
+      <ModalShow 
+        title='操作'
+        msg='hello world'
       />
     </div>
   )

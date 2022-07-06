@@ -1,5 +1,8 @@
 import html2canvas from 'html2canvas';
 import React from 'react';
+import * as ExcelJs from 'exceljs';
+import { saveAs } from 'file-saver'
+import ExportJsonExcel from 'js-export-excel'
 //节流
 export const throttle = (fnc, delay) => {
   let done = 1;		//记录是否可执行
@@ -88,3 +91,132 @@ export const makeItem = (arr) => {
     })
   })
 }
+//导出简答表格用
+export const exportExcel = () => {
+  let arr = [{name: 'tyy', necessityType: '是'}]
+  let option = {};  //option代表的就是excel文件
+  option.fileName = `例子`;  //excel文件名称
+  option.datas = [
+    {
+      sheetData: arr,  //excel文件中的数据源
+      sheetName: '商户配置信息表',  //excel文件中sheet页名称
+      sheetFilter: ['name', 'necessityType'],  //excel文件中需显示的列数据
+      sheetHeader:['商户配置信息', '是否必填'],  //excel文件中每列的表头名称
+      columnWidths: [10, 10],
+    }
+  ]
+  let toExcel = new ExportJsonExcel(option);  //生成excel文件
+  toExcel.saveExcel();  //下载excel文件
+}
+//导出复杂的表格 
+export const toexcel = () => {
+  const workbook = new ExcelJs.Workbook();
+  // 添加sheet
+  const worksheet = workbook.addWorksheet('商户配置信息表');
+  // 设置 sheet 的默认行高
+  worksheet.properties.defaultRowHeight = 20;
+  // 设置列
+  worksheet.columns = [{
+    header: '商户配置信息',
+    key: 'name',
+    width: 25
+  },
+  {
+    header: '是否必填',
+    key: 'age',
+    width: 20
+  }
+  ];
+  // 添加行
+  worksheet.addRows([
+    {
+        "code": "fundCustodian",
+        "name": "资金托管方",
+        "tip": "请输入资金托管方(fundCustodian)",
+        "necessityType": 2
+    },
+    {
+        "code": "fundCustodianName",
+        "name": "资金托管方名称",
+        "tip": "请输入资金托管方名称(fundCustodianName)",
+        "necessityType": 2
+    },
+    {
+        "code": "remarks",
+        "name": "备注",
+        "tip": "请输入备注(remarks)",
+        "necessityType": 2
+    },
+    {
+        "code": "mchId",
+        "name": "商户号",
+        "thirdCode": "mchId",
+        "thirdName": "商户号",
+        "defaultValue": "",
+        "tip": "请输入商户号(mchId)",
+        "necessityType": 1
+    },
+    {
+        "code": "appId",
+        "name": "应用编号",
+        "thirdCode": "appId",
+        "thirdName": "应用编号",
+        "defaultValue": "",
+        "tip": "请输入应用编号(appId)",
+        "necessityType": 2
+    },
+    {
+        "code": "signType",
+        "name": "签名方式",
+        "thirdCode": "signType",
+        "thirdName": "签名方式",
+        "defaultValue": "RSA2",
+        "tip": "请输入签名方式(signType)",
+        "necessityType": 2
+    },
+    {
+        "code": "certPassword",
+        "name": "证书密码",
+        "tip": "请输入证书密码(certPassword)！",
+        "necessityType": 2
+    },
+    {
+        "code": "privateRsa",
+        "name": "商户私钥",
+        "tip": "请输入商户私钥(privateRsa)",
+        "necessityType": 2
+    },
+    {
+        "code": "providerPublicRsa",
+        "name": "平台公钥",
+        "tip": "请输入平台公钥(providerPublicRsa)",
+        "necessityType": 2
+    },
+    {
+        "code": "gateway",
+        "name": "三方支付机构网关地址",
+        "tip": "请输入三方支付机构网关地址(gateway)",
+        "necessityType": 2
+    }
+]);
+  let headerRow = worksheet.getRow(1);
+  headerRow.eachCell((cell, colNum) => {
+    cell.fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      fgColor: {argb: 'd8d8d8'},
+    }
+    
+  })
+  worksheet.pageSetup.margins = {
+    left: 0.7, right: 0.7,
+    top: 0.75, bottom: 0.75,
+    header: 0.3, footer: 0.3
+  };
+  // 导出excel
+  workbook.xlsx.writeBuffer().then((data => {
+    const blob = new Blob([data], {type: ''});
+    saveAs(blob, 'simple-demo.xlsx');
+  }))
+}
+
