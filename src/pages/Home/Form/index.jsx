@@ -28,7 +28,7 @@ class ReduxTest extends Component {
         {
           this.props.test
         }
-        
+        ???
         <button onClick={() => {this.props.increment('increment', 1)}}>+1</button>
         <TimePick/>
       </div>
