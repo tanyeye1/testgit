@@ -5,6 +5,7 @@ const Home = lazy(() => import('../pages/Home'))
 const Login = lazy(() => import('../pages/Login'))
 const Form = lazy(() => import('../pages/Home/Form'))
 const Animal = lazy(() => import('../pages/Home/Animal'))
+const Test = lazy(() => import('../pages/Home/Test'))
 
 const routes = [
   {
@@ -12,6 +13,13 @@ const routes = [
     path: '/home',
     component: Home,
     children: [
+      {
+        icon: UserOutlined,
+        title: '测试',
+        path: '/home/test',
+        component: Test,
+        
+      },
       {
         icon: UserOutlined,
         title: '表单',

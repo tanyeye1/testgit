@@ -1,0 +1,167 @@
+.slider {
+  display: flex;
+  flex-direction: column;
+  height: 36px;
+  margin-top: 24%;
+  overflow: hidden;
+  text-align: left;
+}
+ 
+.slider-text {
+  display: block;
+  height: 100%;
+  transform: translateY(0%);
+}
+ 
+.slider-ani {
+  transform: translateY(-100%);
+  transition: transform 1s ease;
+}
+.slider-hide {
+  opacity: 0;
+}
+
+.box-number {
+  /* background: green; */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: rgb(36, 35, 35);
+  height: 100px
+}
+
+.list-wrap {
+  height: 3rem;
+  width: 3rem;
+  text-align: center;
+  overflow: hidden;
+  margin: 0.1rem;
+  border: 2px rgb(19, 19, 18) solid;
+  border-radius: 2px;
+}
+
+.roll div {
+  font-size: 2rem;
+  line-height: 3rem;
+}
+
+.roll_1 {
+  -webkit-animation: roll_1 2s forwards; /* Safari 与 Chrome */
+}
+.roll_2 {
+  -webkit-animation: roll_2 2s forwards; /* Safari 与 Chrome */
+}
+
+.roll_3 {
+  -webkit-animation: roll_3 2s forwards; /* Safari 与 Chrome */
+}
+
+.roll_4 {
+  -webkit-animation: roll_4 2s forwards; /* Safari 与 Chrome */
+}
+
+.roll_5 {
+  -webkit-animation: roll_5 2s forwards; /* Safari 与 Chrome */
+}
+
+.roll_6 {
+  -webkit-animation: roll_6 2s forwards; /* Safari 与 Chrome */
+}
+
+.roll_7 {
+  -webkit-animation: roll_7 2s forwards; /* Safari 与 Chrome */
+}
+
+.roll_8 {
+  -webkit-animation: roll_8 2s forwards; /* Safari 与 Chrome */
+}
+
+/*省略roll_2——roll_8*/
+
+.roll_9 {
+  -webkit-animation: roll_9 2s forwards; /* Safari 与 Chrome */
+}
+
+@-webkit-keyframes roll_1 /* Safari 与 Chrome */
+{
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, -3rem, 0);
+  }
+}
+
+@-webkit-keyframes roll_2 /* Safari 与 Chrome */
+{
+  0% {
+    transform: translate3d(0, 0px, 0);
+  }
+  100% {
+    transform: translate3d(0, -6rem, 0);
+  }
+}
+@-webkit-keyframes roll_3 /* Safari 与 Chrome */
+{
+  0% {
+    transform: translate3d(0, 0px, 0);
+  }
+  100% {
+    transform: translate3d(0, -9rem, 0);
+  }
+}
+@-webkit-keyframes roll_4 /* Safari 与 Chrome */
+{
+  0% {
+    transform: translate3d(0, 0px, 0);
+  }
+  100% {
+    transform: translate3d(0, -12rem, 0);
+  }
+}
+@-webkit-keyframes roll_5 /* Safari 与 Chrome */
+{
+  0% {
+    transform: translate3d(0, 0px, 0);
+  }
+  100% {
+    transform: translate3d(0, -15rem, 0);
+  }
+}
+@-webkit-keyframes roll_6 /* Safari 与 Chrome */
+{
+  0% {
+    transform: translate3d(0, 0px, 0);
+  }
+  100% {
+    transform: translate3d(0, -18rem, 0);
+  }
+}
+@-webkit-keyframes roll_7 /* Safari 与 Chrome */
+{
+  0% {
+    transform: translate3d(0, 0px, 0);
+  }
+  100% {
+    transform: translate3d(0, -21rem, 0);
+  }
+}
+@-webkit-keyframes roll_8 /* Safari 与 Chrome */
+{
+  0% {
+    transform: translate3d(0, 0px, 0);
+  }
+  100% {
+    transform: translate3d(0, -24rem, 0);
+  }
+}
+@-webkit-keyframes roll_9 /* Safari 与 Chrome */
+{
+  0% {
+    transform: translate3d(0, 0px, 0);
+  }
+  100% {
+    transform: translate3d(0, -27rem, 0);
+  }
+}

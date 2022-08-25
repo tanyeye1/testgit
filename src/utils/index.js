@@ -13,7 +13,7 @@ export const throttle = (fnc, delay) => {
       done = 0		//执行后置为不可执行
       setTimeout(()=>{
           fnc(...args)		//计时结束后再置为可执行
-          done =1
+          done = 1
       }, 1000)
   }
 }
@@ -220,3 +220,40 @@ export const toexcel = () => {
   }))
 }
 
+// 金额格式化
+export const toThousands = (num, int) => {
+  num = (num || 0).toString();
+  let negative = false;
+  // console.log(num.substring(0, 1))
+  if (num.substring(0, 1) == "-") {
+    num = num.substring(1, num.length);
+    // console.log(num)
+    negative = true;
+  }
+  let number = 0,
+    floatNum = "",
+    intNum = "";
+  // 判断是否有小数位，有则截取小数点后的数字
+  if (num.indexOf(".") > 0) {
+    number = num.indexOf("."); // 获取小数点出现的位置
+    floatNum = num.substr(number); // 截取arr.substr(form, length)
+    intNum = num.substring(0, number); // 截取arr.substring(start, end)
+  } else {
+    // floatNum = ".00";
+    if (int) floatNum = "";
+    intNum = num;
+  }
+  let result = [],
+    counter = 0;
+  intNum = intNum.split("");
+  // 利用3的倍数，向数组插入','
+  for (let i = intNum.length - 1; i >= 0; i--) {
+    counter++;
+    result.unshift(intNum[i]);
+    if (!(counter % 3) && i != 0) {
+      result.unshift(",");
+    }
+  }
+  if (negative) return "-" + result.join("") + floatNum || "";
+  return result.join("") + floatNum || "";
+};

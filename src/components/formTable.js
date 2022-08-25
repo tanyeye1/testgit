@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {Form, Table, Input, Select, Button, DatePicker} from 'antd'
+import {Form, Table, Input, Select, Button, DatePicker, Tooltip, Switch} from 'antd'
 import styles from  './formTable.module.scss'
 import moment from 'moment';
 import ModalShow from './modal';
@@ -15,9 +15,7 @@ export default function FormTable() {
   ])
   const onFinish = (value) => {
     console.log('value', value)
-    const {time} = value
     
-    console.log('???', moment(time[0]).format('YYYY-MM-DD'))
   }
   const reset = () => {
     form.resetFields()
@@ -85,7 +83,7 @@ export default function FormTable() {
   
   const formDate = [
     {
-      label: '时间',
+      label: <>时间<Tooltip title='开关开启时需要检查商户号或医院是否选择，开关关闭时不需要检查商户号或医院(适用于补单某一支付渠道数据等特殊情况'>？</Tooltip></>,
       name: 'time',
       render: <RangePicker
                 disabledDate={disabledDate}
@@ -110,6 +108,13 @@ export default function FormTable() {
         <Option value={2}>2</Option>
         
       </Select>
+    },
+    {
+      label: '入参',
+      name: 'switch',
+      render: <Tooltip title='???'>
+        <Switch></Switch>
+      </Tooltip>
     },
     {
       render: <Button onClick={reset}>重置</Button>

@@ -1,4 +1,7 @@
 @import '~antd/dist/antd.css';
+/* :focus {
+  outline: 0;
+} */
 
 .test {
   width: 100px;

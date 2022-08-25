@@ -10,6 +10,7 @@
     "@react-three/fiber": "^7.0.29",
     "@reduxjs/toolkit": "^1.8.2",
     "@svgr/webpack": "^5.5.0",
+    "@tauri-apps/api": "^1.0.2",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
@@ -34,6 +35,7 @@
     "eslint-config-react-app": "^7.0.1",
     "eslint-webpack-plugin": "^3.1.1",
     "exceljs": "^4.3.0",
+    "express": "^4.18.1",
     "file-loader": "^6.2.0",
     "file-saver": "^2.0.5",
     "framer-motion": "^6.3.11",
@@ -56,6 +58,7 @@
     "postcss-preset-env": "^7.0.1",
     "prompts": "^2.4.2",
     "qrcode.react": "^3.0.2",
+    "rainy-window": "^0.0.6",
     "react": "^18.1.0",
     "react-app-polyfill": "^3.0.0",
     "react-app-rewired": "^2.2.1",
@@ -64,6 +67,7 @@
     "react-redux": "^8.0.2",
     "react-refresh": "^0.11.0",
     "react-router-dom": "^6.3.0",
+    "react-to-print": "^2.14.7",
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
@@ -81,6 +85,7 @@
     "webpack-dev-server": "^4.6.0",
     "webpack-manifest-plugin": "^4.0.2",
     "workbox-webpack-plugin": "^6.4.1",
+    "ws": "^8.8.0",
     "xlsx": "^0.18.5"
   },
   "scripts": {
@@ -91,7 +96,8 @@
     "lint:fix": "eslint --fix",
     "dev": "node scripts/dev.js",
     "other": "node scripts/start.js other",
-    "otherBuild": "node scripts/build.js other"
+    "otherBuild": "node scripts/build.js other",
+    "tauri": "tauri"
   },
   "eslintConfig": {
     "extends": [
@@ -168,6 +174,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.0.2",
     "@commitlint/config-conventional": "^17.0.2",
+    "@tauri-apps/cli": "^1.0.5",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "husky": "^4.3.8",
     "lint-staged": "^13.0.2",

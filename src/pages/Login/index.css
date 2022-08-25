@@ -3,3 +3,26 @@
   height: 500px;
   background: url(https://front-images.oss-cn-hangzhou.aliyuncs.com/i4/638d7fcdcbf2ca972ba3f70462524a74-400-500.png) no-repeat ;
 }
+
+.slider {
+  display: flex;
+  flex-direction: column;
+  height: 36px;
+  margin-top: 24%;
+  overflow: hidden;
+  text-align: left;
+}
+ 
+.slider-text {
+  display: block;
+  height: 100%;
+  transform: translateY(0%);
+}
+ 
+.slider-ani {
+  transform: translateY(-100%);
+  transition: transform 1s ease;
+}
+.slider-hide {
+  opacity: 0;
+}
