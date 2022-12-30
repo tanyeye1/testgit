@@ -1,15 +1,24 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { Button } from 'antd'
 import './index.scss'
+import useXState from '../../../hooks/useXState'
 
 export default function Test() {
   const [data, setData] = useState(0)
   const [count, setCount] = useState(0)
+  const [test, setTest] = useXState(0)
+  const [arr, setArr] = useState([1, 2])
   const add = () => {
     setData(data + 1)
   }
   const change = () => {
     setCount(count + 1)
+  }
+  const todo = () => {
+    console.log('???')
+    setTest(test + 1, () => {
+      console.log('test', test);
+    })
   }
   return (
     <>
@@ -23,6 +32,14 @@ export default function Test() {
         <div>???</div>
         <div>?</div>
       </div>
+      {
+        arr.map(v => v)
+      }
+      <div>{test}</div>
+      <Button onClick={() => {
+        setArr([...arr, 0])
+      }}>改变数组</Button>
+      <Button onClick={todo}>test</Button>
       <Button onClick={add}>+1</Button>
       <Button onClick={change}>count</Button>
       <input type="text" />

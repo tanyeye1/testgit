@@ -32,9 +32,11 @@ class ReduxTest extends Component {
       console.log(this.state.index);
     })
   }
-
   btn = () => {
     console.log('???', this.state.count, this.state.count1)
+    this.setState({count: this.state.count + 1}, () => {
+      console.log('count', this.state.count)
+    })
   }
   // btn = useCallback(
   //   () => {
@@ -44,6 +46,7 @@ class ReduxTest extends Component {
   render() {
     return (
       <div>
+        <Child a={this.state.count} />
         <ReactToPrint
           content={() => this.componentRef}
           trigger={() => <button>Print this out!</button>}
@@ -91,5 +94,23 @@ class ComponentToPrint extends React.PureComponent {
     return (
       <div>My cool content here!</div>
     );
+  }
+}
+
+class Child extends Component {
+  state = {
+
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('shouldComponentUpdate', nextProps, nextState);
+    return true
+  }
+  componentWillReceiveProps(nextProps) {
+    console.log('componentWillReceiveProps', nextProps)
+  }
+  render() {
+    return (
+      <div>child{this.props.a}</div>
+    )
   }
 }

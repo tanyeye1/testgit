@@ -1,0 +1,11 @@
+.container {
+  overflow: auto;
+  height: 100%;
+  border: 1px solid;
+  padding: 10px;
+  .Box {
+    height: 60%;
+    border: 1px solid;
+    margin: 20px 0;
+  }
+}

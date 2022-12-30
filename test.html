@@ -4,41 +4,205 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>聊天室</title>
+  <script src="/socket.io/socket.io.js"></script>
   <style>
-    .box {
-      width: 100px;
-      height: 1000px;
-      background-color: black;
-      /* transform: scale(2); */
+    .login {
+      width: 200px;
+      height: 150px;
+      /* background-color: skyblue; */
+      margin: 30px auto;
+      text-align: center;
+      border: 1px solid black;
     }
-    .box2 {
-      width: 100px;
-      height: 100px;
-      background-color: pink;
-      margin-top: 10px;
+    .logon {
+      width: 200px;
+      height: 150px;
+      margin: 30px auto;
+      text-align: center;
+      border: 1px solid black;
     }
-    .container {
-      border: 1px solid;
+    #btn {
+      margin-top: 20px;
+    }
+    .user {
+      width: 201px;
+      float: left;
+      margin-left: 110px;
+    }
+    .right {
+      width: 201px;
+      background-color: #a9e87a;
+      float: right;
+      margin-top: 20px;
+      table-layout: fixed; 
+      word-break: break-all; 
+      overflow: hidden;
+    }
+    .left {
+      width: 201px;
+      background-color: #fff;
+      float: left;
+      margin-top: 20px;
+      table-layout: fixed; 
+      word-break: break-all; 
+      /* overflow: hidden; */
+      position: relative;
+    }
+    .left .username {
+      /* background-color: pink; */
+      position: absolute;
+      left: 10px;
+      top: -20px;
+    }
+    
+    .chat {
+      width: 400px;
+      height: 400px;
+      background-color: #f3f3f3;
+      margin: 20px auto;
+      text-align: center;
+      position: relative;
+    }
+    .chat #chat {
+      height: 280px;
+      /* background-color: pink; */
+      overflow-y: auto;
+    }
+    .chat #writing {
+      font-size: medium;
+      font-weight: 700;
+      position: absolute;
+      left: 150px;
+      top: 60px;
+    }
+    .chat .input {
+      position: absolute;
+      bottom: 0;
+      left: 100px;
     }
   </style>
 </head>
 <body>
-  <button onclick="scrollToBottom()">到底部</button>
-  <div class="container">
-    <p class="box"></p>
+  <div class="login">
+    <h2>用户注册</h2>
+    <input type="text" id="name">
+    <button id="btn">注册</button>
   </div>
-  <p class="box2"></p>
-  <button onclick="scrollToTop()">到头部</button>
+  <div class="logon">
+    <h2>用户登录</h2>
+    <input type="text" id="user">
+    <button id="btn1">登录</button>
+  </div>
+  <div class="chat">
+    <h2>
+      聊天室
+      <div id="count"></div>
+    </h2>
+    <div id="writing"></div>
+    <div id="chat"></div>
+    <div class="input">
+      <input type="text" id="content" onkeydown="enter()">
+      <button onclick="send()">发送</button>
+    </div>
+  </div>
+
   <script>
-    const scrollToBottom = () => {
-      
-      return document.body.scrollIntoView({ behavior: "smooth", block: "end" });
+    let socket = io()
+    console.log(socket)
+    let name = null
+    let user = null
+    let content = null
+    document.getElementById('btn').onclick = function() {
+      name = document.getElementById('name').value
+      console.log(name)
+      if (name) {
+        socket.emit('login', {username: name})
+        document.getElementById('name').value = ''
+      } else {
+        alert('请输入名称')
+      }
     }
-    const scrollToTop = () => {
-      
-      return document.body.scrollIntoView({ behavior: "smooth", block: "start" });
+    document.getElementById('btn1').onclick = function() {
+      user = document.getElementById('user').value
+      if (user) {
+        socket.emit('logon', {username: user})
+        document.getElementById('user').value = ''
+        document.getElementById('content').value = ''
+      } else {
+        alert('请输入名称')
+      }
     }
+    function digui(num) {
+      if(num > 0) {
+        return num + digui(num-1)
+      } else return 0
+    }
+    function send() {
+      if (user === null) {
+        alert('请先登录')
+      } else {
+        content = document.getElementById('content').value
+        console.log('123',content)
+        if (content) {
+          socket.emit('sendMessage', {username: user, message: content})
+          document.getElementById('content').value = ''
+        }
+      }
+    }
+    function enter() {
+      if (user === null) {
+        alert('请先登录')
+      } else {
+        // document.getElementById('writing').style.display = 'block'
+        socket.emit('writing', user)
+        content = document.getElementById('content').value
+        if (event.keyCode === 13 && content) {
+          // document.getElementById('writing').style.display = 'none'
+          socket.emit('sendMessage', {username: user, message: content})
+          document.getElementById('content').value = ''
+        }
+      }
+    }
+    socket.on('content', function(data) {
+      document.getElementById('writing').innerHTML = '<div class="writing">' + '用户' + data + '正在输入中' + '</div>'
+    })
+    socket.on('fail', function(data) {
+      alert('用户' + data + '已经注册过了')
+      // console.log('用户注册过了')
+    })
+    socket.on('fail2', function() {
+      alert('该用户未注册，请先注册！')
+    })
+    socket.on('fail3', function() {
+      alert('该用户已经加入了群聊')
+    })
+    // socket.on('loginSuccess', function() {
+    //   document.getElementById('writing').innerHTML = ''
+    // })
+    socket.on('success', function(data) {
+      document.getElementById('writing').innerHTML = ''
+      document.getElementById('chat').innerHTML += '<div class="user">' + '用户' + data + '加入群聊' + '</div>'
+    })
+    socket.on('count', function(data) {
+      document.getElementById('count').innerHTML = '(' + data + ')'
+    })
+    socket.on('quit', function(data) {
+      if (data !== null) {
+        document.getElementById('chat').innerHTML += '<div class="user">' + '用户' + data + '退出群聊' + '</div>'
+      }
+    })
+    socket.on('receiveMessage', function(data) {
+      // html = '<div>' + data.message + '</div>'
+      // document.getElementById('chat').append(html)
+      if (data.username === user) {
+        document.getElementById('chat').innerHTML += '<div class="right">' + data.message + '</div>'
+      } else {
+        document.getElementById('chat').innerHTML += '<div class="left"><div class="username">用户:' + data.username + '</div>' + data.message + '</div>'
+      }
+      document.getElementById('writing').innerHTML = ''
+      document.getElementById('chat').scrollTo(0,1000000)
+    })
   </script>
 </body>
 </html>

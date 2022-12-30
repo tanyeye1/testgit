@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // let str = ('aaabbbcceeff').split('')
+    // let count = str.length
+    // let strNum 
+    // console.log('str', str)
+    // str.map(v => {
+    //   // count = Math.min(count, str.filter(i => v === i).length)
+    //   if(count > str.filter(i => v === i).length) {
+    //     count = str.filter(i => v === i).length
+    //     strNum = v
+    //   }
+    // })
+    // str.splice(str.indexOf(strNum))
+    // console.log('str', str)
+    let num = 100010001
+    var chnNumChar = ["零","一","二","三","四","五","六","七","八","九"];
+    var chnUnitSection = ["","万","亿","万亿","亿亿"];
+    var chnUnitChar = ["","十","百","千"];
+    console.log('num', num, trans(num))
+    
+    function sectionToChinese (num) {
+      let count = 0 , str , chnstr = '', zero = false
+      while(num > 0) {
+        let v = num % 10
+        if(v === 0) {
+          if(zero) {
+            zero = false
+            chnstr = chnNumChar[v] + chnstr
+          }
+        } else {
+          zero = true
+          str = chnNumChar[v]
+          str += chnUnitChar[count]
+          chnstr = str + chnstr
+        }
+        
+        count++
+        num = Math.floor(num/10)
+      } 
+      return chnstr
+    }
+    function trans (num) {
+      let strIns, chnStr = '', unitPos = 0, needZero = false
+      num = Math.floor(num)
+      if(num === 0) {
+        return chnNumChar[num]
+      }
+      while(num > 0) {
+        let section = num % 10000
+        if(needZero) {
+          chnStr = chnNumChar[0] + chnStr
+        }
+        strIns = sectionToChinese(section)
+        strIns += (section !== 0) ? chnUnitSection[unitPos] : chnUnitSection[0];
+        chnStr = strIns + chnStr 
+        needZero = (section < 1000) && (section > 0)
+        num = Math.floor(num / 10000)
+        unitPos ++
+      }
+      return chnStr
+    }
+  </script>
+</body>
+</html>

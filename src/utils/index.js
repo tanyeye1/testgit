@@ -257,3 +257,50 @@ export const toThousands = (num, int) => {
   if (negative) return "-" + result.join("") + floatNum || "";
   return result.join("") + floatNum || "";
 };
+
+//数字转汉语
+var chnNumChar = ["零","一","二","三","四","五","六","七","八","九"];
+var chnUnitSection = ["","万","亿","万亿","亿亿"];
+var chnUnitChar = ["","十","百","千"];
+
+function sectionToChinese (num) {
+  let count = 0 , str , chnstr = '', zero = false
+  while(num > 0) {
+    let v = num % 10
+    if(v === 0) {
+      if(zero) {
+        zero = false
+        chnstr = chnNumChar[v] + chnstr
+      }
+    } else {
+      zero = true
+      str = chnNumChar[v]
+      str += chnUnitChar[count]
+      chnstr = str + chnstr
+    }
+    
+    count++
+    num = Math.floor(num/10)
+  } 
+  return chnstr
+}
+export function trans (num) {
+  let strIns, chnStr = '', unitPos = 0, needZero = false
+  num = Math.floor(num)
+  if(num === 0) {
+    return chnNumChar[num]
+  }
+  while(num > 0) {
+    let section = num % 10000
+    if(needZero) {
+      chnStr = chnNumChar[0] + chnStr
+    }
+    strIns = sectionToChinese(section)
+    strIns += (section !== 0) ? chnUnitSection[unitPos] : chnUnitSection[0];
+    chnStr = strIns + chnStr 
+    needZero = (section < 1000) && (section > 0)
+    num = Math.floor(num / 10000)
+    unitPos ++
+  }
+  return chnStr
+}

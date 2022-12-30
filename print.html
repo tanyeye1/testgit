@@ -6,189 +6,121 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
-    .box {
-      border: 1px solid;
-      width: 420px;
-      padding: 10px;
-    }
-    .describe {
-      text-align: center;
-    }
-
-    .title {
-      font-size: 19px;
-      width: 50%;
-      /* text-align: center; */
-      margin-left: 20%;
-    }
-    /* .name {
-      font-size: 14px;
-    } */
-    .content {
-      border-top: 1px solid;
-      border-bottom: 1px solid;
-      padding: 10px 0;
-
-    }
-    .content1 {
-      display: flex;
-      align-items: center;
-      border-bottom: 1px dashed;
-      padding: 10px;
-    }
-    .content1:last-child {
-      border-bottom: none;
-    }
-    .money {
-      width: 10%;
-      writing-mode: tb-rl;
-      /* margin-left: 10px; */
-    }
-    .details {
-      width: 90%;
-    }
-    .zfb {
-      display: flex;
-      justify-content: space-between;
-      border-left: 1px dashed;
-      margin-left: 10px;
-      padding-left: 10px;
-    }
-    .opt {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px;
-    }
+    @import url("https://fonts.googleapis.com/css?family=Roboto");
+body {
+    background: #2D2D34;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
+}
+.box {
+    position: relative;
+    width: 120px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px;
+    color: #F27059;
+}
+.item {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 14px;
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s all ease;
+}
+.one:before,
+.one:after {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: #F27059;
+    transition: 0.4s all ease;
+}
+.one:before {
+    top: 0;
+}
+.one:after {
+    bottom: 0;
+}
+.one .item:before,
+.one .item:after {
+    position: absolute;
+    top: 0;
+    content: '';
+    height: 100%;
+    width: 2px;
+    background: #F27059;
+    transition: 0.4s all ease;
+    z-index: -1;
+}
+.one .item:before {
+    left: 0;
+}
+.one .item:after {
+    right: 0;
+}
+.one:hover:before,
+.one:hover:after {
+    transition: 0.4s all ease;
+}
+.one:hover:before {
+    transform: translateY(-10px);
+}
+.one:hover:after {
+    transform: translateY(10px);
+}
+.one:hover .item {
+    color: white;
+}
+.one:hover .item:before,
+.one:hover .item:after {
+    width: 100%;
+    transition: 0.4s all ease;
+}
+.two {
+    box-sizing: border-box;
+    border: 2px solid #F27059;
+    position: relative;
+}
+.two:before {
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 50px;
+    transition: 0.4s all ease;
+    background: #F27059;
+    left: 0;
+    z-index: -1;
+}
+.two:hover {
+    color: white;
+}
+.two:hover:before {
+    width: 100%;
+    transition: 0.4s all ease;
+}
+   
   </style>
 </head>
 <body>
-  <div class="box">
-    <div class="describe">
-      <div class="title">贵州医科大学附属医院窗口收费员日结算清单</div>
-      <div class="name">操作员：张三</div>
-      <div class="name">收费区间：2022/09/11 08:00:00至2022/09/11 18:00: 00</div>
-    </div>
-    
-    <div class="content">
-      <div class="content1">
-        <div class="money">收费金额</div>
-        <div class="details">
-          <div class="zfb">
-            <div>支付宝</div>
-            <div>1,922,112.00</div>
-          </div>
-          <div class="zfb">
-            <div>支付宝</div>
-            <div>1,922,112.00</div>
-          </div>
-          <div class="zfb">
-            <div>支付宝</div>
-            <div>1,922,112.00</div>
-          </div>
-          <div class="zfb">
-            <div>支付宝</div>
-            <div>1,922,112.00</div>
-          </div>
-          <div class="zfb">
-            <div>支付宝</div>
-            <div>1,922,112.00</div>
-          </div>
-          <div class="zfb">
-            <div>支付宝</div>
-            <div>1,922,112.00</div>
-          </div>
-          <div class="zfb">
-            <div>支付宝</div>
-            <div>1,922,112.00</div>
-          </div>
-        </div>
-      </div>
-      <div class="content1">
-        <div class="money">收费金额</div>
-        <div class="details">
-          <div class="zfb">
-            <div>支付宝</div>
-            <div>1,922,112.00</div>
-          </div>
-          <div class="zfb">
-            <div>支付宝</div>
-            <div>1,922,112.00</div>
-          </div>
-          <div class="zfb">
-            <div>支付宝</div>
-            <div>1,922,112.00</div>
-          </div>
-          <div class="zfb">
-            <div>支付宝</div>
-            <div>1,922,112.00</div>
-          </div>
-          <div class="zfb">
-            <div>支付宝</div>
-            <div>1,922,112.00</div>
-          </div>
-          <div class="zfb">
-            <div>支付宝</div>
-            <div>1,922,112.00</div>
-          </div>
-          <div class="zfb">
-            <div>支付宝</div>
-            <div>1,922,112.00</div>
-          </div>
-        </div>
-      </div>
-      <div class="content1">
-        <div class="money">收费金额</div>
-        <div class="details">
-          <div class="zfb">
-            <div>支付宝</div>
-            <div>1,922,112.00</div>
-          </div>
-          <div class="zfb">
-            <div>支付宝</div>
-            <div>1,922,112.00</div>
-          </div>
-          <div class="zfb">
-            <div>支付宝</div>
-            <div>1,922,112.00</div>
-          </div>
-          <div class="zfb">
-            <div>支付宝</div>
-            <div>1,922,112.00</div>
-          </div>
-          <div class="zfb">
-            <div>支付宝</div>
-            <div>1,922,112.00</div>
-          </div>
-          <div class="zfb">
-            <div>支付宝</div>
-            <div>1,922,112.00</div>
-          </div>
-          <div class="zfb">
-            <div>支付宝</div>
-            <div>1,922,112.00</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="opt">
-      <div>打印时间:2022-07-11 19:1134</div>
-      <div>打印人: 张三</div>
-    </div>
-  </div>
-  <button id="print">打印</button>
+  <div class="box one">
+    <div class="item">Buy</div>
+</div>
+
+<div class="box two">
+    <div class="item">Buy</div>
+</div>
+
   <script>
-    // window.print()
-    document.getElementById('print').onclick = () => {
-      window.print()
-      document.getElementById('print').style.display = 'block'
-    }
-    window.onbeforeprint = () => {
-        console.log('onbeforeprint')
-        document.getElementById('print').style.display = 'none'
-      }
-      window.onafterprint = () => {
-        console.log('onafterprint')
-      }
+    
   </script>
 </body>
 </html>
