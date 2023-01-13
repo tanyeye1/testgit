@@ -11,6 +11,9 @@ import { Layout, Menu, Breadcrumb } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import {makeItem} from './utils'
 import TimePick from './components/timePick'
+import Animated from './components/animated'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
+
 const { Header, Content, Sider } = Layout;
 const items1 = routes.map((key) => ({
   key: key.path,
@@ -58,16 +61,41 @@ export default function App()  {
   const routerRender = (routes) => {
     return routes.map((i, index) => {
       if( i.children?.length > 0) {}
-      return i.children?.length > 0 ? 
-      (<>
-          <Route path={i.path} key={i.path} element={i.component && <i.component />}/>
-          {
-            routerRender(i.children)
-          }
-      </>
-      ) 
-      : 
-      <Route path={i.path} key={i.path} element={i.component && <i.component />}/>
+      return (
+        i.children?.length > 0 ? 
+        (<>
+            <Route path={i.path} key={i.path}
+            // element={() => {
+            //   console.log('组件1', i)
+            //   return (
+            //     i.component && <i.component />
+            //   )
+            // }}
+            element={i.component && 
+              <Animated>
+                <i.component />
+              </Animated>
+            }
+            />
+            {
+              routerRender(i.children)
+            }
+        </>
+        ) 
+        : 
+        <Route path={i.path} key={i.path} 
+        element={
+          i.component && 
+          <Animated
+          >
+            <i.component />
+          </Animated>
+        }
+        // element={i.component && <i.component />}
+        />
+          
+      )
+     
     })
   }
   const clickSideMenu = (i) => {
@@ -96,7 +124,7 @@ export default function App()  {
     // ???
     // </>
     <div className={styles.App}>
-      <Suspense fallback={<div></div>}>
+      <Suspense fallback={<div>loading</div>}>
       <Layout>
       <Header className='header'>
         <div className={styles.logo} />
@@ -139,6 +167,7 @@ export default function App()  {
               minHeight: 280,
             }}
           >
+          <TransitionGroup>
             <Routes>
               <Route path={"/"} element={<Navigate  to='/home'/>} />
               {/* {
@@ -148,9 +177,10 @@ export default function App()  {
                   </Route>
                 })
               } */}
-              {
-                routerRender(routes)
-              }
+                {
+                  routerRender(routes)
+                }
+              
               {/* <Route path={'/home'} element={<Home/>}>
 
               </Route>
@@ -159,6 +189,8 @@ export default function App()  {
               </Route> */}
               <Route path={"*"} element={<div>暂无此页面</div>} />
             </Routes>
+            </TransitionGroup>
+
           </Content>
         </Layout>
       </Layout>

@@ -3,6 +3,7 @@ import React from 'react';
 import * as ExcelJs from 'exceljs';
 import { saveAs } from 'file-saver'
 import ExportJsonExcel from 'js-export-excel'
+import * as xlsx from 'xlsx'
 //节流
 export const throttle = (fnc, delay) => {
   let done = 1;		//记录是否可执行
@@ -284,6 +285,8 @@ function sectionToChinese (num) {
   } 
   return chnstr
 }
+
+//数字转汉语
 export function trans (num) {
   let strIns, chnStr = '', unitPos = 0, needZero = false
   num = Math.floor(num)
@@ -303,4 +306,62 @@ export function trans (num) {
     unitPos ++
   }
   return chnStr
+}
+
+// 导入excel文件数据
+// export let resolveFile= (e)=>{
+//   console.log('file', e)
+//   var files = e.target.files;
+//   var name = files.name;
+//   const reader = new FileReader();
+//   reader.onload = (evt) => {
+//       const bstr = evt.target.result;
+//       const wb = xlsx.read(bstr, {type:'binary'});
+//       console.log('wb', wb, xlsx)
+//       let data = []
+//       for(const sheet in wb.Sheets) {
+//         data = data.concat(xlsx.utils.sheet_to_json(wb.Sheets[sheet]))
+//       }
+//       console.log("Data>>>", data);
+//   };
+//   reader.readAsBinaryString(files[0]);
+// }
+
+export const resolveFile = (e) => {
+  let files = e.target.files
+  if (files.length === 0) {
+    return
+  }
+  // 获取文件
+  let file = files[0]
+  // 读取文件
+  readExcelFile(file).then(data => {
+    // 读取到的excel文件内容
+    console.log(data)
+  }).catch(err => {
+    console.log(err)
+  })
+}
+const readExcelFile = (file) => {
+  return new Promise((resolve, reject) => {
+    // 获取文件后缀名
+    const extension = file.name.split('.').pop()
+    // 判断是否是excel文件
+    if (extension !== 'xlsx' && extension !== 'xls') {
+      reject('文件不是excel文件')
+    }
+    // 读取文件
+    let reader = new FileReader()
+    reader.onload = (e) => {
+      let data = e.target.result
+      let workbook = xlsx.read(data, { type: 'binary' })
+      // 读取第一个sheet
+      let sheetName = workbook.SheetNames[0]
+      let sheet = workbook.Sheets[sheetName]
+      // 转换json数据
+      let jsonData = xlsx.utils.sheet_to_json(sheet)
+      resolve(jsonData)
+    }
+    reader.readAsBinaryString(file)
+  })
 }

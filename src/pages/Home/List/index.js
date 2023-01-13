@@ -9,6 +9,7 @@ import {
 } from '@ant-design/icons';
 import Dialog from 'rc-dialog'
 import '../../../../node_modules/rc-dialog/assets/index.css'
+import { resolveFile, trans } from '@/utils';
 
 export default function index() {
   const [visible, setVisible] = useState(true)
@@ -40,6 +41,7 @@ export default function index() {
   const fuzhi = () => {
     copy('1212')
   }
+  console.log('111', trans(100))
   return (
     <div className='container' onScroll={onScroll}>
       {/* <div className='Box'>box</div>
@@ -47,8 +49,9 @@ export default function index() {
       {/* <dialog open>
         111
       </dialog> */}
+      <input type='file' id="excel-file" onChange={resolveFile} />
       <CloseOutlined style={{}} />
-      <Dialog
+      {/* <Dialog
         visible={visible}
         title='111'
         // style={{
@@ -58,7 +61,7 @@ export default function index() {
         onClose={() => {setVisible(false)}}
       >
         ???
-      </Dialog>
+      </Dialog> */}
       <JSONTree  data={JSON.parse(obj)} hideRoot={false}  theme='twilight'   valueRenderer={(valueAsString, value, ...keyPath) => {
         console.log('???', valueAsString, value, ...keyPath)
         return valueAsString + ','

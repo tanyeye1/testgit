@@ -9,26 +9,14 @@ import { ConfigProvider } from 'antd';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <ConfigProvider locale={zhCN}>
-
-  //   <Provider store={store}>
-      
-  //       <HashRouter>
-  //           <App />
-
-  //       </HashRouter>
-  //   </Provider>
-  //   </ConfigProvider>
+  
   <ConfigProvider locale={zhCN}>
-
     <Provider store={store}>
-      
-        <HashRouter>
-            <App />
-
-        </HashRouter>
+			<HashRouter>
+				<App />
+			</HashRouter>
     </Provider>
-    </ConfigProvider>
+  </ConfigProvider>
     
 );
 
