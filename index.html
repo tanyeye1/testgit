@@ -1,12 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://s.yuantutech.com/third/jquery-2.2.4.min.js"></script>
+
   <title>Document</title>
 </head>
+
 <body>
-  
+  <em>11</em> 111
+  <pre>2\r\n3</pre>
+  <p>
+    
+  </p>
+  <p>2</p>
+  <div style="background-color: pink; width: 200px;height: 200px;" class="outer">
+    <div style="background-color: black; width: 100px;height: 100px;" class="inner"></div>
+  </div>
+  <script>
+    $.get(`https://api-qdjh.jkqd.org.cn/user-web/restapi/patient/getList`, function (res) {
+      if(res.resultCode === '202') {
+        console.log('111', res, res.resultCode === '202', typeof res.resultCode)
+        // location.href = `https://www.baidu.com`
+      }
+    }, 'jsonp')
+    document.title = '测试'
+    
+  </script>
+
 </body>
+
 </html>

@@ -65,17 +65,17 @@ export default function App()  {
         i.children?.length > 0 ? 
         (<>
             <Route path={i.path} key={i.path}
-            // element={() => {
-            //   console.log('组件1', i)
-            //   return (
-            //     i.component && <i.component />
-            //   )
-            // }}
-            element={i.component && 
-              <Animated>
-                <i.component />
-              </Animated>
-            }
+            element={() => {
+              console.log('组件1', i)
+              return (
+                i.component && <i.component />
+              )
+            }}
+            // element={i.component && 
+            //   <Animated>
+            //     <i.component />
+            //   </Animated>
+            // }
             />
             {
               routerRender(i.children)

@@ -6,7 +6,7 @@ import {Provider} from 'react-redux'
 import store from './redux/store';
 import zhCN from 'antd/lib/locale/zh_CN';
 import { ConfigProvider } from 'antd';
-
+import "raind/dist/style/rain-ui.min.css"
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   
